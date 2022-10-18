@@ -1,3 +1,8 @@
+package TestUnit;
+
+import Api.vec;
+import Departments.naturalVec;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -5,14 +10,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class naturalVecTest {
 
     vec<Integer> naturalVec = new naturalVec<>(4);
-    naturalVec  n = new naturalVec( naturalVec);
-    naturalVec emptyNvec = new naturalVec(2);
+    naturalVec n = new naturalVec( naturalVec);
+    Departments.naturalVec emptyNvec = new naturalVec(2);
 
     @Test
     void getWorld() {
-        assertEquals(4 , n.getDim());
+        Assertions.assertEquals(4 , n.getDim());
 
-        assertEquals(4 , naturalVec.getDim());
+        Assertions.assertEquals(4 , naturalVec.getDim());
     }
 
     @Test
@@ -33,7 +38,7 @@ class naturalVecTest {
         int[] test ={2,1,4,2,2};
         n.setVecArr(test);
         for (int i=0;i<n.getDim();i++){
-            assertEquals(n.getVecArr()[i],test[i] );
+            Assertions.assertEquals(n.getVecArr()[i],test[i] );
         }
 
     }

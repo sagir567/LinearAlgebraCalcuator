@@ -1,4 +1,4 @@
-import java.lang.reflect.Array;
+package Api;
 
 public interface vec<T> {
 
@@ -6,9 +6,9 @@ public interface vec<T> {
 
 
     public void sum (vec v); // return the sum of the different vectors
-//    public void multiply(T n); // multiply the current naturalVec with the given input
+//    public void multiply(T n); // multiply the current Departments.naturalVec with the given input
     public int getDim();// return the dimension of the vector
-//    public Array[] getVecArr();// return an array who represents the vec
+//    public Array[] getVecArr();// return an array who represents the Api.vec
     public char getWorld();
 
     void multiply(int n);

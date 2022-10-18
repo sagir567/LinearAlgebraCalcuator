@@ -1,3 +1,7 @@
+package Departments;
+
+import Api.vec;
+
 public class naturalVec<Integer> implements vec {
 
 
@@ -27,7 +31,7 @@ public class naturalVec<Integer> implements vec {
 
     public naturalVec(vec v) {
         if (v.getWorld() != 'N') {
-            Exception e = new Exception("vec v is not natural, cannot creat natural vector from different type");
+            Exception e = new Exception("Api.vec v is not natural, cannot creat natural vector from different type");
             System.out.println(e);
             return;
         } else {
