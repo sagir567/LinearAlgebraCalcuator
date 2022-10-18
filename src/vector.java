@@ -17,6 +17,7 @@ public class vector {
         this.VecArr = new double[n];
         this.dim =n;
         this.world ='N';
+        System.out.println();
     }
 
     public vector sum (vector vec){
