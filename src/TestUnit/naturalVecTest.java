@@ -2,60 +2,89 @@ package TestUnit;
 
 import Api.vec;
 import Departments.naturalVec;
+import org.junit.internal.matchers.ThrowableCauseMatcher;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
+
+import java.lang.reflect.Array;
+import java.rmi.UnexpectedException;
+import java.util.Arrays;
+import java.util.function.Supplier;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class naturalVecTest {
 
     vec<Integer> naturalVec = new naturalVec<>(4);
-    naturalVec n = new naturalVec( naturalVec);
-    Departments.naturalVec emptyNvec = new naturalVec(2);
+    naturalVec n = new naturalVec(naturalVec);
+
 
     @Test
     void getWorld() {
-        Assertions.assertEquals(4 , n.getDim());
+        Assertions.assertEquals(4, n.getDim());
 
-        Assertions.assertEquals(4 , naturalVec.getDim());
+        Assertions.assertEquals(4, naturalVec.getDim());
     }
 
     @Test
     void getVecArr() {
-        for (int i:n.getVecArr()){
+        for (int i : n.getVecArr()) {
             assertEquals(i, 0);
         }
-
-
-
     }
 
     @Test
-    void setVecArr() {
-        for (int i:n.getVecArr()){
-            assertEquals(i, 0);
-        }
-        int[] test ={2,1,4,2,2};
-        n.setVecArr(test);
-        for (int i=0;i<n.getDim();i++){
-            Assertions.assertEquals(n.getVecArr()[i],test[i] );
-        }
+    void setVecArr() throws Exception {
+        Departments.naturalVec zeroVector = new naturalVec(4);
+        Departments.naturalVec vec1 = new naturalVec(4);
+        boolean testStatus = Arrays.equals(zeroVector.getVecArr(), new int []{0,0,0,0});
+        assert testStatus;
+        int[] test = {2, 1, 4, 2};
+        vec1.setVecArr(test);
+        testStatus = Arrays.equals(vec1.getVecArr(), test);
+        assert testStatus;
+
+        assertThrows( Exception.class,()-> vec1.setVecArr(new int[]{0,0,0,0,0,0,0}),"cannot change replace vectors with different length");
 
     }
 
     @Test
     void getDim() {
+        boolean b = naturalVec.getDim() == 4;
+        assert (b);
     }
 
     @Test
     void setDim() {
+        naturalVec temp = new naturalVec(3);
+        boolean b = temp.getDim() == 3;
+        assert b;
+        temp.setDim(4);
+        b = temp.getDim() == 4;
+        assert b;
+
+
     }
 
     @Test
-    void sum() {
+    void sum() throws Exception {
+        naturalVec vec1 = new naturalVec(new int[]{4, 3, 1, 4});
+        naturalVec vec2 = new naturalVec(new int[]{2, 2, 0, 2});
+        vec2.sum(vec1);
+        boolean test = Arrays.equals(new int[]{6, 5, 1, 6}, vec2.getVecArr());
+        assert test;
+
+        assertThrows( Exception.class,()-> vec1.sum(new naturalVec(new int[]{0, 0, 0, 0, 0, 0, 0})),"cannot change replace vectors with different length");
     }
 
     @Test
     void multiply() {
+        naturalVec vec1 = new naturalVec(new int[]{4, 3, 1, 4});
+        naturalVec vec2 = new naturalVec(new int[]{2, 2, 0, 2});
+
+        vec1.multiply(3);
+        boolean test = Arrays.equals(new int[]{12, 9, 3, 12}, vec1.getVecArr());
+        assert test;
     }
 }
