@@ -1,6 +1,9 @@
 package Departments;
 
 import Api.vec;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
 
 public class naturalVec<Integer> implements vec {
 
@@ -10,11 +13,11 @@ public class naturalVec<Integer> implements vec {
     private char world;
 
 
-    public naturalVec(int [] v){
+    public naturalVec(int[] v) {
         this.VecArr = v;
-        this.dim= v.length;
+        this.dim = v.length;
 
-        this.world='N';
+        this.world = 'N';
 
     }
 
@@ -38,6 +41,10 @@ public class naturalVec<Integer> implements vec {
             this.world = v.getWorld();
             this.VecArr = new int[v.getDim()];
             this.dim = v.getDim();
+            naturalVec temp = (naturalVec) v;
+            for (int i = 0; i < temp.getDim(); i++) {
+                this.VecArr[i] = ((naturalVec) v).getVecArr()[i];
+            }
 
         }
     }
@@ -58,7 +65,11 @@ public class naturalVec<Integer> implements vec {
         return this.VecArr;
     }
 
-    public void setVecArr(int[] vecArr) {
+    public void setVecArr(int[] vecArr) throws Exception {
+        if (this.VecArr.length != vecArr.length) throw new Exception("cannot replace vectors with different length");
+
+        int[] deepCopy = Arrays.copyOf(vecArr, this.getVecArr().length);
+
         VecArr = vecArr;
     }
 
@@ -72,20 +83,17 @@ public class naturalVec<Integer> implements vec {
 
 
     @Override
-    public void sum(vec v) {
-        try {
-            naturalVec temp = new naturalVec(v);
-            int[] tempArr = temp.VecArr;
-            for (int i = 0; i < this.dim; i++) {
-                this.VecArr[i] = tempArr[i];
-            }
+    public void sum(@NotNull vec v) throws Exception {
+        naturalVec temp = (naturalVec) v;
+        if (v.getWorld() != 'N') throw new Exception("cannot sum vectors from different worlds");
+        if (temp.getVecArr().length != this.VecArr.length)
+            throw new Exception("cannot sum vectors from different dimension ");
 
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("cannot sum vectors from different dimension ");
-            throw e;
-        } catch (IncompatibleClassChangeError e) {
-            System.out.println("cannot sum vectors from different worlds");
-            throw e;
+
+        int[] tempArr = temp.VecArr;
+
+        for (int i = 0; i < this.dim; i++) {
+            this.VecArr[i] += tempArr[i];
         }
     }
 
