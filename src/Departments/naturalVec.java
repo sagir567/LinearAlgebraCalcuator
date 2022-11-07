@@ -1,19 +1,19 @@
 package Departments;
 
-import Api.vec;
+import Api.Vector;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
-public class naturalVec<Integer> implements vec {
+public class naturalVec<Integer> implements Vector<java.lang.Integer> {
 
 
-    private int[] VecArr;
+    private java.lang.Integer[] VecArr;
     private int dim = 2;
     private char world;
 
 
-    public naturalVec(int[] v) {
+    public naturalVec(java.lang.Integer[] v) {
         this.VecArr = v;
         this.dim = v.length;
 
@@ -26,20 +26,20 @@ public class naturalVec<Integer> implements vec {
 
         this.world = 'N';
         for (int i = 0; i < vec.getDim(); i++) {
-            this.VecArr[i] = (int) vec.getVecArr()[i];
+            this.VecArr[i] =  vec.getVecArr()[i];
         }
         this.dim = vec.getDim();
 
     }
 
-    public naturalVec(vec v) {
+    public naturalVec(Vector v) {
         if (v.getWorld() != 'N') {
-            Exception e = new Exception("Api.vec v is not natural, cannot creat natural vector from different type");
+            Exception e = new RuntimeException("Api.realVec v is not natural, cannot creat natural vector from different type");
             System.out.println(e);
             return;
         } else {
             this.world = v.getWorld();
-            this.VecArr = new int[v.getDim()];
+            this.VecArr = new java.lang.Integer[v.getDim()];
             this.dim = v.getDim();
             naturalVec temp = (naturalVec) v;
             for (int i = 0; i < temp.getDim(); i++) {
@@ -50,7 +50,8 @@ public class naturalVec<Integer> implements vec {
     }
 
     public naturalVec(int n) {
-        this.VecArr = new int[n];
+        this.VecArr = new java.lang.Integer[n];
+        for(int i=0;i<n;i++)this.VecArr[i]=0;
         this.dim = n;
         this.world = 'N';
 
@@ -61,16 +62,21 @@ public class naturalVec<Integer> implements vec {
     }
 
 
-    public int[] getVecArr() {
-        return this.VecArr;
+    public java.lang.Integer[] getVecArr() {
+        java.lang.Integer[] temp = new java.lang.Integer[this.VecArr.length];
+        java.lang.Integer[] source = this.VecArr;
+        for(int i=0;i<this.VecArr.length;i++){
+            temp[i]=source[i];
+        }
+        return temp;
     }
 
-    public void setVecArr(int[] vecArr) throws Exception {
+    public void setVecArr(java.lang.Integer[] vecArr) throws Exception {
         if (this.VecArr.length != vecArr.length) throw new Exception("cannot replace vectors with different length");
 
-        int[] deepCopy = Arrays.copyOf(vecArr, this.getVecArr().length);
+        java.lang.Integer[] deepCopy = Arrays.copyOf(vecArr, this.getVecArr().length);
 
-        VecArr = vecArr;
+        this.VecArr = deepCopy;
     }
 
     public int getDim() {
@@ -83,14 +89,14 @@ public class naturalVec<Integer> implements vec {
 
 
     @Override
-    public void sum(@NotNull vec v) throws Exception {
+    public void sum(@NotNull Vector v) throws Exception {
         naturalVec temp = (naturalVec) v;
         if (v.getWorld() != 'N') throw new Exception("cannot sum vectors from different worlds");
         if (temp.getVecArr().length != this.VecArr.length)
             throw new Exception("cannot sum vectors from different dimension ");
 
 
-        int[] tempArr = temp.VecArr;
+        java.lang.Integer[] tempArr = temp.VecArr;
 
         for (int i = 0; i < this.dim; i++) {
             this.VecArr[i] += tempArr[i];
@@ -98,14 +104,15 @@ public class naturalVec<Integer> implements vec {
     }
 
     @Override
-    public void multiply(int n) {
-
-
+    public void multiply(java.lang.Integer n) {
+        int num = n;
         for (int i = 0; i < this.dim; i++) {
-            this.VecArr[i] *= n;
+            this.VecArr[i] *= num;
         }
         System.out.println("multiplication succeeded ");
     }
+
+
 }
 
 
