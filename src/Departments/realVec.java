@@ -11,7 +11,6 @@ public class realVec implements Vector<Double> {
 
 
 
-
     @Override
     public void sum(Vector v) throws Exception {
 
