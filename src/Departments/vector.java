@@ -2,9 +2,9 @@ package Departments;
 
 import Api.Vector;
 
-public class realVec implements Vector<Double> {
+public abstract class vector implements Vector {
 
-    private  Double [] vectorArr = new Double[4];
+    double[] vectorArr = new double[4];
     private int dim = 4;
     private char world ='R';
 
@@ -12,23 +12,25 @@ public class realVec implements Vector<Double> {
 
 
     @Override
-    public void sum(Vector v) throws Exception {
+    public Vector sum(Vector v) throws Exception {
 
-        Double [] temp = (Double[]) v.getVecArr();
+        double[] temp = v.getVecArr();
         if (this.dim!=v.getDim())
             throw new RuntimeException("vectors dimension out of bounds, cannot sum vectors from different dimension ");
 
         for (int i=0;i<this.dim; i++){
             this.vectorArr[i]= temp[i];
         }
+        return this;
     }
 
     @Override
-    public void multiply(Double n) {
+    public Vector multiply(double n) {
 
         for (int i= 0;i<this.vectorArr.length;i++){
             this.vectorArr[i]*=n;
         }
+        return this;
     }
 
     @Override
@@ -37,7 +39,7 @@ public class realVec implements Vector<Double> {
     }
 
     @Override
-    public Double[] getVecArr() {
+    public double[] getVecArr() {
         return this.vectorArr;
     }
 
@@ -47,4 +49,6 @@ public class realVec implements Vector<Double> {
     }
 
 
+
 }
+
