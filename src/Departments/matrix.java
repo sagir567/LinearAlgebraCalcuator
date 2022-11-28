@@ -37,24 +37,20 @@ public class matrix implements Api.Matrix {
     }
 
 
-
-
-    private void backSub(){
+    private void backSub() {
         double x[]
                 = new double[this.mat.length]; // An array to store solution
 
     /* Start calculating from last equation up to the
            first */
-        for (int i = this.mat.length - 1; i >= 0; i--)
-        {
+        for (int i = this.mat.length - 1; i >= 0; i--) {
 
             /* start with the RHS of the equation */
-            x[i] = mat[i][this.mat[i].length-1];
+            x[i] = mat[i][this.mat[i].length - 1];
 
       /* Initialize j to i+1 since matrix is upper
                triangular*/
-            for (int j = i + 1; j < this.mat.length; j++)
-            {
+            for (int j = i + 1; j < this.mat.length; j++) {
 
                 /* subtract all the lhs values
                  * except the coefficient of the variable
@@ -69,14 +65,13 @@ public class matrix implements Api.Matrix {
 
         System.out.println();
         System.out.println("Solution for the system:");
-        for (int i = 0; i < this.mat.length; i++)
-        {
-            System.out.format("x"+i+" =%.6f", x[i]);
+        for (int i = 0; i < this.mat.length; i++) {
+            System.out.format("x" + i + " =%.6f", x[i]);
             System.out.println();
         }
     }
 
-    private  int forwardElimnation (){
+    private int forwardElimnation() {
         for (int k = 0; k < this.mat.length; k++) {
 
             // Initialize maximum value and index for pivot
@@ -129,15 +124,15 @@ public class matrix implements Api.Matrix {
     @Override
     public Api.Matrix gaussianElimination() {
         int matStatus = forwardElimnation();
-        if(matStatus!= -1){
+        if (matStatus != -1) {
             System.out.println("Mat is singular");
             this.singular = true;
             this.det = 0;
 
-            if(this.mat[matStatus][this.mat.length]!=0){
+            if (this.mat[matStatus][this.mat.length] != 0) {
                 System.out.println("inConsistent System");
 
-            }else System.out.println("system may have infinitely many solutions");
+            } else System.out.println("system may have infinitely many solutions");
             return this;
         }
 
@@ -186,10 +181,10 @@ public class matrix implements Api.Matrix {
 
     @Override
     public double[] multiplyRow(int row, double a) throws Exception {
-        if(a==0) throw new Exception ("multiply mat row or colum by zero is illegal ");
+        if (a == 0) throw new Exception("multiply mat row or colum by zero is illegal ");
 
-        for(int i =0;i<this.mat[row].length;i++){
-            this.mat[row][i]=a*this.mat[row][i];
+        for (int i = 0; i < this.mat[row].length; i++) {
+            this.mat[row][i] = a * this.mat[row][i];
         }
         return this.mat[row];
     }
